@@ -49,7 +49,18 @@ function oilPrice(diselQuantity, petrolQuantity, octenQuantity){
     const diselPricePerLiter = 114;
     const petrolPricePerLiter = 130;
     const octenPricePerLiter = 135;
+
+    let diselTotalPrice = diselPricePerLiter * diselQuantity;
+    let petrolTotalPrice = petrolPricePerLiter * petrolQuantity;
+    let octenTotalPrice = octenPricePerLiter * octenQuantity;
+
+    let totalPrice = diselTotalPrice + petrolTotalPrice + octenTotalPrice;
+
+    return totalPrice;
 }
+
+let totalCost = oilPrice(0,2,3);
+console.log(totalCost);
 
 
 
