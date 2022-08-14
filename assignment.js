@@ -6,12 +6,18 @@
 function radianToDegree(radian) {
     // let π = 3.14159;
     // let degree = radian * (180 / π);
+    if (typeof radian !== 'number') {
+        return 'Please enter a number';
+    }
+
     let degree = radian * (180 / Math.PI);
-    return degree.toFixed(2);
+    let degreeAsNumber = parseFloat(degree.toFixed(2));
+    return degreeAsNumber;
 }
 
-// let angleConverter = radianToDegree(3);
-// console.log(angleConverter);
+let angleConverter = radianToDegree(5);
+console.log(angleConverter);
+
 
 /*******************************************************************/
 
@@ -22,11 +28,17 @@ function radianToDegree(radian) {
 /* Solution 2: */
 
 function isJavaScriptFile(string) {
-    if (string.endsWith('.js')) { return true; }
-    else { return false; };
+    if (typeof string !== 'string') {
+        return 'Please enter a string';
+    }
+
+    if (string.endsWith('.js')) {
+        return true;
+    }
+    else { return false; }
 }
-//  let fileName = isJavaScriptFile('ami.js')
-//  console.log(fileName);
+let fileName = isJavaScriptFile('5')
+console.log(fileName);
 
 /*******************************************************************/
 
@@ -46,6 +58,10 @@ function isJavaScriptFile(string) {
 
 /* Solution 3: */
 function oilPrice(diselQuantity, petrolQuantity, octenQuantity) {
+    if (typeof diselQuantity !== 'number' || typeof petrolQuantity !== 'number' || typeof octenQuantity !== 'number') {
+        return 'Please enter a number';
+    }
+
     const diselPricePerLiter = 114;
     const petrolPricePerLiter = 130;
     const octenPricePerLiter = 135;
@@ -59,8 +75,8 @@ function oilPrice(diselQuantity, petrolQuantity, octenQuantity) {
     return totalPrice;
 }
 
-// let totalCost = oilPrice(0,2,3);
-// console.log(totalCost);
+let totalCost = oilPrice('0', 2, 3);
+console.log(totalCost);
 
 
 /*******************************************************************/
@@ -72,35 +88,39 @@ function oilPrice(diselQuantity, petrolQuantity, octenQuantity) {
 /* Solution 4: */
 
 function publicBusFare(number) {
+    // error message
+    if (typeof number !== 'number') {
+        return 'Please enter a number';
+    }
+
+    // declare constant variables
     const busCapacity = 50;
     const microbusCapacity = 11;
     const publicBusTicketPrice = 250;
 
+    // checking condition for more than 50 people
 
     if (number >= busCapacity) {
-        let busNeeded = number / busCapacity;
-        Math.floor(busNeeded);
-        let remaining = (number % busCapacity);
-        let microbusNeeded = remaining / microbusCapacity;
-        Math.floor(microbusNeeded);
-        let reminder = remaining % microbusCapacity;
-        let totalPublicbusFare = reminder * publicBusTicketPrice;
+        // let busNeeded = number / busCapacity;
+        let remainingPersonsAfterFulfillBusCapacity = (number % busCapacity);
+        // let microbusNeeded = remaining / microbusCapacity;
+        let restPeople = remainingPersonsAfterFulfillBusCapacity % microbusCapacity;
+        let totalPublicbusFare = restPeople * publicBusTicketPrice;
         return totalPublicbusFare;
     }
 
     else if (number >= microbusCapacity) {
-        let microbusNeeded = number / microbusCapacity;
-        Math.floor(microbusNeeded);
-        let remaining = (number % microbusCapacity);
-        let totalPublicbusFare = remaining * publicBusTicketPrice;
+        // let microbusNeeded = number / microbusCapacity;
+        let remainingPeopleAfterFulfillMicrobusCapacity = (number % microbusCapacity);
+        let totalPublicbusFare = remainingPeopleAfterFulfillMicrobusCapacity * publicBusTicketPrice;
         return totalPublicbusFare;
     }
 
     else { return totalPublicbusFare = number * publicBusTicketPrice }
 }
 
-// let passenger = publicBusFare(49);
-// console.log(passenger);
+let totalPublicbusTicketPrice = publicBusFare(46);
+console.log(totalPublicbusTicketPrice);
 
 
 /*******************************************************************/
@@ -108,3 +128,37 @@ function publicBusFare(number) {
 // Problem 5: isBestFriend
 
 // তোমাকে একটি ফাংশন লিখতে হবে isBestFriend যেটি প্যরামিটার হিসেবে দুইটি অবজেক্ট নিবে । তোমাকে অবজেক্ট দুইটি নিয়ে দেখতে হবে এরা দুইজন একে অপরের বেস্টফ্রেন্ড কিনা । যদি বেস্ট ফ্রেন্ড হয় তাহলে true রিটার্ন করবে , না হলে false রিটার্ন করবে ।
+
+/* Solution 5: */
+function isBestFriend(object1, object2) {
+
+    // error message
+    if (typeof object1 !== 'object' || typeof object2 !== 'object') {
+        return 'Please enter an object type variable';
+    }
+
+    // create new arrays
+    let arrayOfObject1Values = Object.values(object1);
+    let arrayOfObject2Values = Object.values(object2);
+    let newArrayOfCombinedValues = arrayOfObject1Values.concat(arrayOfObject2Values);
+
+    // checking duplicates
+    let uniqueArray = [];
+    for (i = 0; i < newArrayOfCombinedValues.length; i++) {
+        let element = newArrayOfCombinedValues[i];
+        if (uniqueArray.includes(element) == false) {
+            uniqueArray.push(element);
+        }
+    }
+
+    //checking the condition for being best friend
+    if (uniqueArray.length === arrayOfObject1Values.length && uniqueArray.length === arrayOfObject2Values.length) { return true; }
+
+    else { return false; }
+}
+
+let objectOne = { name: 'doe', age: 'alex', height: 67 };
+let objectTwo = { name: 'john', age: 'doe', height: 67 };
+
+let bestFriend = isBestFriend(objectOne, objectTwo);
+console.log(bestFriend);
